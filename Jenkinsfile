@@ -1,21 +1,37 @@
 pipeline {
-    agent any
-
-    stages {
+  agent any
+  stages {
+    stage('Build') {
+      parallel {
         stage('Build') {
-            steps {
-                echo 'Building..'
-            }
+          steps {
+            echo 'Building..'
+          }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
+
+        stage('Test1') {
+          steps {
+            sh 'echo "hello"'
+          }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+
+      }
     }
+
+    stage('Test') {
+      steps {
+        echo 'Testing..'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+      }
+    }
+
+  }
+  environment {
+    env = 'sumit'
+  }
 }
